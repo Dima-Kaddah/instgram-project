@@ -1,10 +1,17 @@
 const path = require('path');
+const morgan = require('morgan');
 const express = require('express');
 const app = express();
 const connectDB = require('./util/connectDB');
+const userRoute = require('./routes/userRoute');
+
+//middleware
+app.use(morgan('dev')); //give route in console//good for 
 
 app.use(express.json());
 
+//routes
+app.use('/api', userRoute);
 
 //server listen
 const port = process.env.PORT || 5000;
