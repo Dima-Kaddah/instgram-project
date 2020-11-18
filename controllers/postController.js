@@ -5,6 +5,31 @@ const HttpError = require('../helpers/HttpError');
 const Post = require('../models/post');
 const User = require('../models/user');
 
+//get all posts
+const getAllPosts = async (req, res, next) => {
+
+  let posts;
+  try {
+    posts = await Post.find({}).populate('postedBy', '_id name');
+  } catch (err) {
+    const error = new HttpError(
+      'Creating place failed, please try again.',
+      500
+    );
+    return next(error);
+  }
+
+  if (!posts) {
+    const error = new HttpError('Could not find user for provided id.', 404);
+    return next(error);
+  }
+  // res.json({ posts: posts.toObject({ getters: true }) });
+
+  res.status(200).json({ posts });
+};
+
+
+// create new post
 const addNewPost = async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -58,4 +83,5 @@ const addNewPost = async (req, res, next) => {
   res.status(201).json({ post: createdPost });
 };
 
+exports.getAllPosts = getAllPosts;
 exports.addNewPost = addNewPost;
