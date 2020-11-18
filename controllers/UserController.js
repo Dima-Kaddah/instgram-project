@@ -12,7 +12,7 @@ const signUp = async (req, res, next) => {
       new HttpError('Invalid inputs passed, please check your data.', 422)
     );
   }
-  const { name, email, password, role } = req.body;
+  const { name, email, password } = req.body;
   let existingUser;
   try {
     existingUser = await User.findOne({ email });
@@ -46,8 +46,7 @@ const signUp = async (req, res, next) => {
   const createdUser = new User({
     name,
     email,
-    password: hashedPassword,
-    role,
+    password: hashedPassword
   });
 
   try {
@@ -78,7 +77,7 @@ const signUp = async (req, res, next) => {
   const modifiedUser = createdUser.toObject({ getters: true });
   res
     .status(201)
-    .json({ userId: modifiedUser.id, email: modifiedUser.email, name: modifiedUser.name, role: modifiedUser.role, token: token });
+    .json({ userId: modifiedUser.id, email: modifiedUser.email, name: modifiedUser.name, token: token });
 };
 
 //login user
@@ -127,7 +126,7 @@ const logIn = async (req, res, next) => {
   const modifiedUser = identifiedUser.toObject({ getters: true });
   res
     .status(200)
-    .json({ userId: modifiedUser.id, email: modifiedUser.email, role: modifiedUser.role, name: modifiedUser.name, token });
+    .json({ userId: modifiedUser.id, email: modifiedUser.email, name: modifiedUser.name, token });
 };
 
 
