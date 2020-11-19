@@ -83,5 +83,31 @@ const addNewPost = async (req, res, next) => {
   res.status(201).json({ post: createdPost });
 };
 
+//get My Posts
+
+const getMyPosts = async (req, res, next) => {
+
+  let posts;
+  try {
+    posts = await Post.find({ postedBy: req.userData.userId }).populate('postedBy', '_id name');
+  } catch (err) {
+    const error = new HttpError(
+      'Creating place failed, please try again.',
+      500
+    );
+    return next(error);
+  }
+
+  if (!posts) {
+    const error = new HttpError('Could not find user for provided id.', 404);
+    return next(error);
+  }
+  // res.json({ posts: posts.toObject({ getters: true }) });
+
+  res.status(200).json({ posts });
+};
+
 exports.getAllPosts = getAllPosts;
 exports.addNewPost = addNewPost;
+exports.getMyPosts = getMyPosts;
+
