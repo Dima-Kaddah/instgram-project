@@ -13,7 +13,7 @@ const getAllPosts = async (req, res, next) => {
     posts = await Post.find({}).populate('postedBy', '_id name');
   } catch (err) {
     const error = new HttpError(
-      'Creating place failed, please try again.',
+      'Creating post failed, please try again.',
       500
     );
     return next(error);
@@ -52,7 +52,7 @@ const addNewPost = async (req, res, next) => {
     user = await User.findById(req.userData.userId);
   } catch (err) {
     const error = new HttpError(
-      'Creating place failed, please try again.',
+      'Creating post failed, please try again.',
       500
     );
     return next(error);
@@ -74,7 +74,7 @@ const addNewPost = async (req, res, next) => {
     await sess.commitTransaction();
   } catch (err) {
     const error = new HttpError(
-      'Creating place failed, please try again.',
+      'Creating post failed, please try again.',
       500
     );
     return next(error);
@@ -92,7 +92,7 @@ const getMyPosts = async (req, res, next) => {
     posts = await Post.find({ postedBy: req.userData.userId }).populate('postedBy', '_id name');
   } catch (err) {
     const error = new HttpError(
-      'Creating place failed, please try again.',
+      'Creating post failed, please try again.',
       500
     );
     return next(error);
