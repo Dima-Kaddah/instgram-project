@@ -3,7 +3,7 @@ import Home from './components/Home';
 import Profile from './components/Profile';
 import Login from './components/Login';
 import Signup from './components/Signup';
-
+import AddPost from './components/AddPost';
 
 import './App.css';
 import {
@@ -31,6 +31,9 @@ function App() {
             </Route>
             <Route path='/signup' exact>
               <Signup />
+            </Route>
+            <Route path='/addpost' exact>
+              <AddPost />
             </Route>
           </Switch>
         </main>
