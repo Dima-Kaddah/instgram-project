@@ -1,7 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Grand+Hotel&display=swap');
+*{
+  margin: 0 auto;
+  box-sizing: border-box;
 
+}
 a{
   color: black !important;
+}
+.pro{
+  width: 75%;
 }
 .brand-logo,h2{
   font-family: 'Grand Hotel', cursive;
@@ -24,4 +31,29 @@ margin-top: 30px;
 .switching{
   color: #1565c0 !important ;
   font-size: small;
+}
+.flexIt{
+  display: flex;
+ justify-content: space-between;
+  margin: 18px 0px;
+  border-bottom: 1px solid rgb(203, 203, 203);
+}
+.profileImg{
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+}
+.flexContent{
+  display: flex;
+  justify-content: space-between;
+  width: 108%;
+}
+.gallery{
+display: flex;
+flex-wrap: wrap;
+}
+.item{
+margin: 10px;
+width:calc((100% / 3) - 20px);
+
 }
