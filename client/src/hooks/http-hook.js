@@ -28,7 +28,7 @@ const useHttpClient = () => {
         );
 
         if (!response.ok) {
-          throw M.toast({ html: responseData.message });
+          throw M.toast({ html: responseData.message, classes: '#c62828 red darken-3' });
         }
 
         setIsLoading(false);
@@ -36,7 +36,7 @@ const useHttpClient = () => {
       } catch (err) {
         setError(err.message || 'Somthing Went wrong, Please try again.');
         setIsLoading(false);
-        throw err;
+        throw M.toast({ html: err.message, classes: '#c62828 red darken-3' });
       }
     },
     [],

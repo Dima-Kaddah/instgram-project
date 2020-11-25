@@ -10,7 +10,7 @@ const Login = () => {
 
   const [values, handleChange, handlerSubmit, errors] = useForm(authSubmitHandler, validateSignIn);
 
-  const { isLoading, error, sendRequest } = useHttpClient();
+  const { isLoading, sendRequest } = useHttpClient();
 
   async function authSubmitHandler() {
     const url = `${process.env.REACT_APP_BACKEND_URL}/login`;
@@ -46,7 +46,7 @@ const Login = () => {
   return (
     <div className='my-card'>
       {isLoading && <div>Loading...</div>}
-      {!isLoading && !error && (
+      {!isLoading && (
         <div className='card auth-card input-field'>
           <h2>Instagram</h2>
           <form onSubmit={handlerSubmit}>

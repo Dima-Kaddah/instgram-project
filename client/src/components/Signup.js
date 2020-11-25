@@ -10,7 +10,7 @@ const Signup = () => {
 
   const [values, handleChange, handlerSubmit, errors] = useForm(authSubmitHandler, validateSignUp);
 
-  const { isLoading, error, sendRequest } = useHttpClient();
+  const { isLoading, sendRequest } = useHttpClient();
 
   async function authSubmitHandler() {
     const url = `${process.env.REACT_APP_BACKEND_URL}/signup`;
