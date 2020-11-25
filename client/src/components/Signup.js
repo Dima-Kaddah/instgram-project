@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import useForm from './../hooks/form-hook';
 import useHttpClient from './../hooks/http-hook';
 import { AuthContext } from '../shared/Auth-context.js';
-import { validateSignUp } from '../shared/validate';
+import validateSignUp from '../shared/validateSignUp';
 
 const Signup = () => {
   const auth = useContext(AuthContext);
@@ -47,18 +47,14 @@ const Signup = () => {
   return (
     <React.Fragment>
       <div className='my-card'>
-        {error && <div>{error}</div>}
         {isLoading && <div>Loading...</div>}
-        {!isLoading && !error && (
+        {!isLoading && (
           <div className='card auth-card input-field'>
             <h2>Instagram</h2>
             <form onSubmit={handlerSubmit}>
               <input type='text' name='name' placeholder='name' value={values.name || ''} onChange={handleChange} className={`${errors.name ? 'inputErr inputForm' : 'inputForm'}`} autoFocus />
-              {errors.name && <p className='valErr'>{errors.name}</p>}
               <input type='email' name='email' placeholder='email' value={values.email || ''} onChange={handleChange} className={`${errors.email ? 'inputErr inputForm' : 'inputForm'}`} />
-              {errors.email && <p className='valErr'>{errors.email}</p>}
               <input type='password' name='password' placeholder='password' value={values.password || ''} onChange={handleChange} className={`${errors.password ? 'inputErr inputForm' : 'inputForm'}`} />
-              {errors.password && <p className='valErr'>{errors.password}</p>}
               <button className='btn waves-effect waves-light #64b5f6 blue darken-1'>Signup</button>
               <h6><Link to='/login' className='switching'> Already have an account?</Link></h6>
             </form>

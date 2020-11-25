@@ -1,4 +1,5 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
+import M from 'materialize-css';
 
 const useHttpClient = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -27,7 +28,7 @@ const useHttpClient = () => {
         );
 
         if (!response.ok) {
-          throw new Error(responseData.message);
+          throw M.toast({ html: responseData.message });
         }
 
         setIsLoading(false);
@@ -41,16 +42,12 @@ const useHttpClient = () => {
     [],
   );
 
-  const clearError = () => {
-    setError(null);
-  };
-
   useEffect(() => {
     return () => {
       activeHttpRequests.current.forEach((abortCtrl) => abortCtrl.abort());
     };
   }, []);
 
-  return { isLoading, error, sendRequest, clearError };
+  return { isLoading, error, sendRequest };
 };
 export default useHttpClient;
