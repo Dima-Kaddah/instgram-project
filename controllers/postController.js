@@ -38,12 +38,12 @@ const addNewPost = async (req, res, next) => {
     );
   }
 
-  const { title, description, photo } = req.body;
+  const { title, description, image } = req.body;
 
   const createdPost = new Post({
     title,
     description,
-    photo,
+    image,
     postedBy: req.userData.userId
   });
 

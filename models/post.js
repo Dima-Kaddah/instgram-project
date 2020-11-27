@@ -11,9 +11,9 @@ const postSchema = new Schema({
     type: String,
     required: true
   },
-  photo: {
+  image: {
     type: String,
-    default: 'no photo'
+    required: true
   },
   postedBy: {
     type: ObjectId,
