@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import useForm from './../hooks/form-hook';
 import useHttpClient from './../hooks/http-hook';
@@ -17,6 +17,14 @@ const AddPost = () => {
 
   const history = useHistory();
 
+
+  useEffect(() => {
+    if (imageUrl) {
+      sendPost();
+
+    }
+  }, [imageUrl]);
+
   async function postSubmitHandler() {
 
     try {
@@ -31,6 +39,11 @@ const AddPost = () => {
     } catch (err) {
       console.log('cant upload image to cloudinary');
     }
+
+
+  }
+
+  const sendPost = async () => {
 
     const url = `${process.env.REACT_APP_BACKEND_URL}/newpost`;
 
@@ -59,8 +72,8 @@ const AddPost = () => {
     } catch (err) {
       console.log('cant create post');
     }
-  }
 
+  };
   return (
     <div className='my-card'>
       {isLoading && <div>Loading...</div>}
