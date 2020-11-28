@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import useForm from './../hooks/form-hook';
 import useHttpClient from './../hooks/http-hook';
 import validatePost from '../shared/validatePost';
-import { AuthContext } from '../shared/Auth-context.js';
+import AuthContext from '../shared/Auth-context.js';
 
 const AddPost = () => {
   const [image, setImage] = useState('');

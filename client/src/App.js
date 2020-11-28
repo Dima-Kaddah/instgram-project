@@ -5,7 +5,7 @@ import Profile from './components/Profile';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import AddPost from './components/AddPost';
-import { AuthContext } from './shared/Auth-context';
+import AuthContext from './shared/Auth-context';
 import { useAuth } from './hooks/auth-hook';
 
 

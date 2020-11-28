@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import useForm from './../hooks/form-hook';
 import useHttpClient from './../hooks/http-hook';
-import { AuthContext } from '../shared/Auth-context.js';
+import AuthContext from '../shared/Auth-context.js';
 import validateSignUp from '../shared/validateSignUp';
 
 const Signup = () => {
