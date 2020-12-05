@@ -1,6 +1,31 @@
-import React from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { useParams } from 'react-router-dom';
+import useHttpClient from './../hooks/http-hook';
+import AuthContext from '../shared/Auth-context.js';
 
 const Home = () => {
+  const [post, setPosts] = useState();
+  const { postId } = useParams();
+
+  const auth = useContext(AuthContext);
+  const { isLoading, sendRequest } = useHttpClient();
+
+  useEffect(() => {
+    const fetchPost = async () => {
+      const request = {
+        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + auth.token },
+      };
+
+      try {
+        const responseData = await sendRequest(
+          `${process.env.REACT_APP_BACKEND_URL}/allposts`
+          , request.headers
+        );
+        setPosts(responseData);
+      } catch (err) { }
+    };
+    fetchPost();
+  }, [sendRequest]);
 
   return (
     <div className='home'>
