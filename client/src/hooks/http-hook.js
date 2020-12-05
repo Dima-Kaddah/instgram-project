@@ -3,7 +3,6 @@ import M from 'materialize-css';
 
 const useHttpClient = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState();
 
   const activeHttpRequests = useRef([]);
 
@@ -28,15 +27,17 @@ const useHttpClient = () => {
         );
 
         if (!response.ok) {
-          throw M.toast({ html: responseData.message, classes: '#c62828 red darken-3' });
+          setIsLoading(false);
+          M.toast({ html: responseData.message, classes: '#c62828 red darken-3' });
         }
 
         setIsLoading(false);
         return responseData;
+
       } catch (err) {
-        setError(err.message || 'Somthing Went wrong, Please try again.');
         setIsLoading(false);
-        throw M.toast({ html: err.message, classes: '#c62828 red darken-3' });
+        throw M.toast({ html: err.message, classes: '#c62828 red darken-3' } || { html: 'Somthing Went wrong, Please try again.', classes: '#c62828 red darken-3' });
+
       }
     },
     [],
@@ -48,6 +49,6 @@ const useHttpClient = () => {
     };
   }, []);
 
-  return { isLoading, error, sendRequest };
+  return { isLoading, sendRequest };
 };
 export default useHttpClient;

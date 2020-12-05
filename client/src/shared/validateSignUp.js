@@ -11,7 +11,7 @@ const validateSignUp = (value) => {
   if (!value.email) {
     errors.email = M.toast({ html: 'Email address is required', classes: '#c62828 red darken-3' });
   } else if (/^\S+@\S+\.\S+$/.test(value)) {
-    errors.email = M.toast({ html: 'Email address is invalid or already exist', classes: '#c62828 red darken-3' });
+    errors.email = M.toast({ html: 'Email address is invalid', classes: '#c62828 red darken-3' });
   }
   if (!value.password) {
     errors.password = M.toast({ html: 'Password is required', classes: '#c62828 red darken-3' });
