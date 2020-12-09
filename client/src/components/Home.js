@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import useHttpClient from './../hooks/http-hook';
 
 const Home = () => {

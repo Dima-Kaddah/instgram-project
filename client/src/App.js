@@ -18,19 +18,19 @@ import {
 } from 'react-router-dom';
 
 const App = () => {
-  const { token, login, logout } = useAuth();
+  const { token, login, logout, name } = useAuth();
   let routes;
   if (token) {
     routes = (
       <Switch>
+        <Route path='/' exact>
+          <Home />
+        </Route>
         <Route path='/addpost' exact>
           <AddPost />
         </Route>
         <Route path='/profile' exact>
           <Profile />
-        </Route>
-        <Route path='/' exact>
-          <Home />
         </Route>
         <Redirect to='/' />
       </Switch>
@@ -57,7 +57,7 @@ const App = () => {
 
   return (
     <div className="App">
-      <AuthContext.Provider value={{ isLoggedIn: !!token, token: token, login: login, logout: logout }}>
+      <AuthContext.Provider value={{ isLoggedIn: !!token, token: token, name: name, login: login, logout: logout }}>
         <Suspense fallback={<div>Loading...</div>}>
           <Router>
             <Navbar />

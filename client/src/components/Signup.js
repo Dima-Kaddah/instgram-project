@@ -7,6 +7,7 @@ import validateSignUp from '../shared/validateSignUp';
 
 const Signup = () => {
   const auth = useContext(AuthContext);
+  // const history = useHistory();
 
   const [values, handleChange, handlerSubmit, errors] = useForm(authSubmitHandler, validateSignUp);
 
@@ -37,7 +38,8 @@ const Signup = () => {
         request.headers
       );
 
-      auth.login(createUser.userId, createUser.token);
+      auth.login(createUser.userId, createUser.name, createUser.token);
+      // history.push('/');
 
     } catch (err) {
       console.log("can't create user", err);

@@ -63,7 +63,11 @@ const signUp = async (req, res, next) => {
   let token;
   try {
     token = jwt.sign(
-      { userId: createdUser.id, email: createdUser.email },
+      {
+        userId: createdUser.id,
+        name: createdUser.name,
+        email: createdUser.email
+      },
       process.env.JWT_SECRET,
       { expiresIn: '1h' }
     );
@@ -77,7 +81,7 @@ const signUp = async (req, res, next) => {
   const modifiedUser = createdUser.toObject({ getters: true });
   res
     .status(201)
-    .json({ userId: modifiedUser.id, email: modifiedUser.email, name: modifiedUser.name, token: token });
+    .json({ userId: modifiedUser.id, name: modifiedUser.name, email: modifiedUser.email, token: token });
 };
 
 //login user
@@ -109,7 +113,7 @@ const logIn = async (req, res, next) => {
   let token;
   try {
     token = jwt.sign(
-      { userId: identifiedUser.id, email: identifiedUser.email },
+      { userId: identifiedUser.id, name: identifiedUser.name, email: identifiedUser.email },
       process.env.JWT_SECRET,
       {
         expiresIn: '1h',
@@ -126,7 +130,7 @@ const logIn = async (req, res, next) => {
   const modifiedUser = identifiedUser.toObject({ getters: true });
   res
     .status(200)
-    .json({ userId: modifiedUser.id, email: modifiedUser.email, name: modifiedUser.name, token });
+    .json({ userId: modifiedUser.id, name: modifiedUser.name, email: modifiedUser.email, token });
 };
 
 

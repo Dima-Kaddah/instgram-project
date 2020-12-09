@@ -85,11 +85,11 @@ const addNewPost = async (req, res, next) => {
 
 //get My Posts
 
-const getMyPosts = async (req, res, next) => {
+const getProfile = async (req, res, next) => {
 
-  let posts;
+  let profile;
   try {
-    posts = await Post.find({ postedBy: req.userData.userId }).populate('postedBy', '_id name');
+    profile = await Post.find({ postedBy: req.userData.userId }).populate('postedBy', '_id name');
   } catch (err) {
     const error = new HttpError(
       'Creating post failed, please try again.',
@@ -98,16 +98,16 @@ const getMyPosts = async (req, res, next) => {
     return next(error);
   }
 
-  if (!posts) {
+  if (!profile) {
     const error = new HttpError('Could not find user for provided id.', 404);
     return next(error);
   }
-  // res.json({ posts: posts.toObject({ getters: true }) });
+  // res.json({ profile: profile.toObject({ getters: true }) });
 
-  res.status(200).json({ posts });
+  res.status(200).json({ profile });
 };
 
 exports.getAllPosts = getAllPosts;
 exports.addNewPost = addNewPost;
-exports.getMyPosts = getMyPosts;
+exports.getProfile = getProfile;
 

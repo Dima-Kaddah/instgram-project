@@ -7,6 +7,7 @@ import validateSignIn from '../shared/validateSignIn';
 
 const Login = () => {
   const auth = useContext(AuthContext);
+  // const history = useHistory();
 
   const [values, handleChange, handlerSubmit, errors] = useForm(authSubmitHandler, validateSignIn);
 
@@ -36,8 +37,8 @@ const Login = () => {
         request.headers
       );
 
-      auth.login(loginUser.userId, loginUser.token);
-
+      auth.login(loginUser.userId, loginUser.name, loginUser.token);
+      // history.push('/');
     } catch (err) {
       console.log("can't login user", err);
     }
