@@ -23,7 +23,7 @@ const Navbar = () => {
             <li><NavLink to='/signup'>Signup</NavLink></li>
           )}
           {isLoggedIn && (
-            <li><NavLink to='/login'><button className='btn waves-effect waves-light #64b5f6 blue darken-1' onClick={logout}>Logout</button></NavLink></li>
+            <li><NavLink to='/login'><button className='btn waves-effect waves-light #c62828 red darken-3' onClick={logout}>Logout</button></NavLink></li>
           )}
 
         </ul>

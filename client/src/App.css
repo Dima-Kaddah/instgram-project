@@ -23,6 +23,12 @@ margin-top: 30px;
   text-align: center;
   max-width: 400px;
 }
+.post-card{
+  margin: 30px auto;
+  padding: 20px;
+  text-align: center;
+  max-width: 500px;
+}
 
 .input-field input:focus {
   border-bottom: 1px solid #64b5f6 !important;
@@ -64,9 +70,4 @@ width:calc((100% / 3) - 20px);
   height: max-content;
   margin: 26px auto;
 }
-.post-card{
-  margin: 30px auto;
-  padding: 20px;
-  text-align: center;
-  max-width: 500px;
-}
+

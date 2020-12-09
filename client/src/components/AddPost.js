@@ -78,7 +78,7 @@ const AddPost = () => {
     <div className='my-card'>
       {isLoading && <div>Loading...</div>}
       {!isLoading && (
-        <div className='card input-filed post-card'>
+        <div className='card post-card input-field'>
           <form onSubmit={handlerSubmit}>
             <input type="text" name='title' placeholder='title' value={values.title || ''} onChange={handleChange} className={`${errors.title ? 'inputErr inputForm' : 'inputForm'}`} />
             <input type="text" name='description' placeholder='description' value={values.description || ''} onChange={handleChange} className={`${errors.description ? 'inputErr inputForm' : 'inputForm'}`} />
