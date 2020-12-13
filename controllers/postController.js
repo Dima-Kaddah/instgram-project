@@ -23,7 +23,6 @@ const getAllPosts = async (req, res, next) => {
     const error = new HttpError('Could not find user for provided id.', 404);
     return next(error);
   }
-  // res.json({ posts: posts.toObject({ getters: true }) });
 
   res.status(200).json({ posts });
 };
@@ -83,7 +82,7 @@ const addNewPost = async (req, res, next) => {
   res.status(201).json({ post: createdPost });
 };
 
-//get My Posts
+//get My Posts-Profile
 
 const getProfile = async (req, res, next) => {
 
@@ -102,11 +101,11 @@ const getProfile = async (req, res, next) => {
     const error = new HttpError('Could not find user for provided id.', 404);
     return next(error);
   }
-  // res.json({ profile: profile.toObject({ getters: true }) });
 
   res.status(200).json({ profile });
 };
 
+//liked posts
 const likePost = async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -119,35 +118,29 @@ const likePost = async (req, res, next) => {
 
   let likedPost;
   try {
-    likedPost = await Post.findByIdAndUpdate(postId, { $push: { likes: req.userData.userId } }, { new: true });
+    likedPost = await Post.findByIdAndUpdate(postId, { $push: { likes: req.userData.userId } }, { new: true }).populate('postedBy', 'name');
   } catch (err) {
     const error = new HttpError(
-      'Something went wrong, could not update place.',
+      'Something went wrong, could not like post.',
       500
     );
     return next(error);
   }
-
-  // if (post.likes.toString() !== req.userData.userId) {
-  //   const error = new HttpError('You are not allowed to edit this place!', 401);
-  //   return next(error);
-  // }
 
   try {
     await likedPost.save();
   } catch (err) {
     const error = new HttpError(
-      'Something went wrong, could not update place.',
+      'Something went wrong, could not like post.',
       500
     );
     return next(error);
   }
 
-  const modifiedLike = likedPost.toObject({ getters: true });
-
-  res.status(200).json(modifiedLike);
+  res.status(200).json(likedPost);
 };
 
+//unliked post
 const unLikePost = async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -160,10 +153,10 @@ const unLikePost = async (req, res, next) => {
 
   let unLikedPost;
   try {
-    unLikedPost = await Post.findByIdAndUpdate(postId, { $pull: { likes: req.userData.userId } }, { new: true });
+    unLikedPost = await Post.findByIdAndUpdate(postId, { $pull: { likes: req.userData.userId } }, { new: true }).populate('postedBy', 'name');
   } catch (err) {
     const error = new HttpError(
-      'Something went wrong, could not update place.',
+      'Something went wrong, could not unlike post.',
       500
     );
     return next(error);
@@ -173,15 +166,13 @@ const unLikePost = async (req, res, next) => {
     await unLikedPost.save();
   } catch (err) {
     const error = new HttpError(
-      'Something went wrong, could not update place.',
+      'Something went wrong, could not unlike post.',
       500
     );
     return next(error);
   }
 
-  const modifiedLike = unLikedPost.toObject({ getters: true });
-
-  res.status(200).json(modifiedLike);
+  res.status(200).json(unLikedPost);
 };
 
 exports.getAllPosts = getAllPosts;

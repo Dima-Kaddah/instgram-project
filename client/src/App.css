@@ -40,7 +40,7 @@ margin-top: 30px;
 }
 .flexIt{
   display: flex;
- justify-content: space-between;
+  justify-content: space-between;
   margin: 18px 0px;
   border-bottom: 1px solid rgb(203, 203, 203);
 }
@@ -54,20 +54,27 @@ margin-top: 30px;
   justify-content: space-between;
   width: 108%;
 }
+
 .gallery{
 display: flex;
 flex-wrap: wrap;
 }
+
 .item{
 margin: 10px;
 width:calc((100% / 3) - 20px);
 
 }
+
 .home{
   width: 50%;
 }
+
 .home-card{
   height: max-content;
   margin: 26px auto;
 }
 
+.like{
+  cursor: pointer;
+  }

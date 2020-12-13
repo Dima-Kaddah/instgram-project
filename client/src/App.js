@@ -18,7 +18,7 @@ import {
 } from 'react-router-dom';
 
 const App = () => {
-  const { token, login, logout, name } = useAuth();
+  const { token, login, logout, userId, name } = useAuth();
   let routes;
   if (token) {
     routes = (
@@ -57,7 +57,7 @@ const App = () => {
 
   return (
     <div className="App">
-      <AuthContext.Provider value={{ isLoggedIn: !!token, token: token, name: name, login: login, logout: logout }}>
+      <AuthContext.Provider value={{ isLoggedIn: !!token, userId: userId, token: token, name: name, login: login, logout: logout }}>
         <Suspense fallback={<div>Loading...</div>}>
           <Router>
             <Navbar />
