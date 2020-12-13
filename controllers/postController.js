@@ -107,7 +107,87 @@ const getProfile = async (req, res, next) => {
   res.status(200).json({ profile });
 };
 
+const likePost = async (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    console.log(errors);
+    const error = new HttpError('The input is incorrect!');
+    return next(error);
+  }
+
+  const { postId } = req.body;
+
+  let likedPost;
+  try {
+    likedPost = await Post.findByIdAndUpdate(postId, { $push: { likes: req.userData.userId } }, { new: true });
+  } catch (err) {
+    const error = new HttpError(
+      'Something went wrong, could not update place.',
+      500
+    );
+    return next(error);
+  }
+
+  // if (post.likes.toString() !== req.userData.userId) {
+  //   const error = new HttpError('You are not allowed to edit this place!', 401);
+  //   return next(error);
+  // }
+
+  try {
+    await likedPost.save();
+  } catch (err) {
+    const error = new HttpError(
+      'Something went wrong, could not update place.',
+      500
+    );
+    return next(error);
+  }
+
+  const modifiedLike = likedPost.toObject({ getters: true });
+
+  res.status(200).json(modifiedLike);
+};
+
+const unLikePost = async (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    console.log(errors);
+    const error = new HttpError('The input is incorrect!');
+    return next(error);
+  }
+
+  const { postId } = req.body;
+
+  let unLikedPost;
+  try {
+    unLikedPost = await Post.findByIdAndUpdate(postId, { $pull: { likes: req.userData.userId } }, { new: true });
+  } catch (err) {
+    const error = new HttpError(
+      'Something went wrong, could not update place.',
+      500
+    );
+    return next(error);
+  }
+
+  try {
+    await unLikedPost.save();
+  } catch (err) {
+    const error = new HttpError(
+      'Something went wrong, could not update place.',
+      500
+    );
+    return next(error);
+  }
+
+  const modifiedLike = unLikedPost.toObject({ getters: true });
+
+  res.status(200).json(modifiedLike);
+};
+
 exports.getAllPosts = getAllPosts;
 exports.addNewPost = addNewPost;
 exports.getProfile = getProfile;
+exports.likePost = likePost;
+exports.unLikePost = unLikePost;
+
 
