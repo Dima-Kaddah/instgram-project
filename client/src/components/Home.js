@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
 import useHttpClient from './../hooks/http-hook';
 import AuthContext from '../shared/Auth-context.js';
-
+import { useHistory } from 'react-router-dom';
 
 const Home = () => {
   const auth = useContext(AuthContext);
+  const history = useHistory();
+
 
   const [posts, setPosts] = useState([]);
   const { isLoading, sendRequest } = useHttpClient();
@@ -47,12 +49,13 @@ const Home = () => {
       console.log(likeThisPost);
       const newData = posts.map(post => {
         if (post._id === likeThisPost.id) {
-          return unLikePost;
+          return likeThisPost;
         } else {
           return post;
         }
       });
       setPosts(newData);
+      history.push('/post');
     } catch (err) { }
 
   };
@@ -82,10 +85,11 @@ const Home = () => {
       );
       const newData = posts.map(post => {
         if (post._id === unLikeThisPost.id) {
-          return unLikePost;
+          return unLikeThisPost;
         } else { return post; }
       });
       setPosts(newData);
+      history.push('/post');
     } catch (err) { }
 
   };
