@@ -175,10 +175,51 @@ const unLikePost = async (req, res, next) => {
   res.status(200).json(unLikedPost);
 };
 
+
+//comment in posts
+const addComment = async (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    console.log(errors);
+    const error = new HttpError('The input is incorrect!');
+    return next(error);
+  }
+  const comment = {
+    text: req.body.text,
+    postedBy: req.userData.userId
+  };
+  const { postId } = req.body.postId;
+
+  let commentPost;
+  try {
+    commentPost = await Post.findByIdAndUpdate(postId, { $push: { comments: comment } }, { new: true }).populate('comments.postedBy', '_id name');
+  } catch (err) {
+    const error = new HttpError(
+      'Something went wrong, could not add comment.',
+      500
+    );
+    return next(error);
+  }
+
+  try {
+    await commentPost.save();
+  } catch (err) {
+    const error = new HttpError(
+      'Something went wrong, could not add comment.',
+      500
+    );
+    return next(error);
+  }
+
+  res.status(200).json(commentPost);
+};
+
+
 exports.getAllPosts = getAllPosts;
 exports.addNewPost = addNewPost;
 exports.getProfile = getProfile;
 exports.likePost = likePost;
 exports.unLikePost = unLikePost;
+exports.addComment = addComment;
 
 
